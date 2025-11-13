@@ -13,11 +13,12 @@ This project focuses on **building a chatbot for medical queries** using **Large
 ### 1. Clone repo
 
 git clone git@github.com:xin0374/DSA4213-Group9.git
+
 cd DSA4213-Group9
 
 ### 2. Install dependencies 
 
-Ensure you gace Python 3.9+ installed, then run:
+Ensure you have Python 3.9+ installed, then run:
 
 pip install -r requirements.txt
 
@@ -44,7 +45,7 @@ python run_evaluation.py
 
 ### 5. Testing the model via chatbot interface (Streamlit)
 
-1. Download [base BioGPT] (https://drive.google.com/drive/folders/1ho36q9dWZsLYQ9T9iXbsDO3-soS8Ebgj?usp=drive_link), [fine-tuned BioGPT] (https://drive.google.com/drive/folders/1CS1vFI0IoVe4SYivi4LlzkvoRQ3MLUn4?usp=drive_link) and [retrieval artifacts] (https://drive.google.com/drive/folders/1tvgXqAdbUKWgi0IWqgZ2BQdhE7sTdW8r?usp=drive_link) from google drive and save them inside this repo folder in your local directory
+1. Download [base BioGPT](https://drive.google.com/drive/folders/1ho36q9dWZsLYQ9T9iXbsDO3-soS8Ebgj?usp=drive_link), [fine-tuned BioGPT](https://drive.google.com/drive/folders/1CS1vFI0IoVe4SYivi4LlzkvoRQ3MLUn4?usp=drive_link) and [retrieval artifacts](https://drive.google.com/drive/folders/1tvgXqAdbUKWgi0IWqgZ2BQdhE7sTdW8r?usp=drive_link) from google drive and save them inside this repo folder in your local directory
 
 2. Run the Streamlit chabot:
 
