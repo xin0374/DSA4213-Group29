@@ -1,0 +1,2 @@
+Model,ExactMatch,TokenF1,ROUGE-L,SupportRatio(avg),HallucinationRate(<0.6 support),BERTScore_P,BERTScore_R,BERTScore_F1
+Baseline 1 (Fine-tuned only),0.0,0.346399761375262,0.2649028842350776,0.0,1.0,0.6587480416198086,0.6090207173509528,0.6301592032090376
