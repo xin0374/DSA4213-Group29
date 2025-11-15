@@ -12,27 +12,35 @@ This project focuses on **building a chatbot for medical queries** using **Large
 
 ### 1. Clone repo
 
+```bash
 git clone git@github.com:xin0374/DSA4213-Group9.git
 
 cd DSA4213-Group9
+```
 
 ### 2. Install dependencies 
 
 Ensure you have Python 3.9+ installed, then run:
 
+```
 pip install -r requirements.txt
+```
 
 ### 3. Training pipeline 
 
 Step 1: Precompute contexts for the dataset
 
+```
 python precompute_contexts.py
+```
 
 Step 2: Fine-tune BioGPT with LoRA on the precomputed contexts
 
 Train the model on precomputed contexts
 
+```
 python finetune_biogpt.py
+```
 
 ### 4. Evaluating on validation dataset 
 
@@ -41,7 +49,9 @@ Assess models performance using validation split
 - Baseline 2: Retrieval + Zero-shot BioGPT
 - Full variant: Retrieval + Fine-tuned BioGPT
 
+```
 python run_evaluation.py
+```
 
 ### 5. Testing the model via chatbot interface (Streamlit)
 
@@ -49,4 +59,6 @@ python run_evaluation.py
 
 2. Run the Streamlit chabot:
 
-streamlit run chatbot_fullmodel.py
+```
+streamlit run chatbot.py
+```
