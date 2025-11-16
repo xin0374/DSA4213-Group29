@@ -42,9 +42,18 @@ for msg in st.session_state.messages:
     if msg["role"] == "user":
         st.markdown(f"🧑‍💻 **You:** {msg['content']}")
     else:
-        st.markdown(f"🩺 **Assistant:** {msg['content']}")
-
-st.markdown("---")
+        # Display answer
+        st.markdown(f"🩺 **Assistant:** {msg['answer']}")
+        
+        # Display sources if available
+        if msg.get('sources'):
+            with st.expander(f"📚 View Sources ({len(msg['sources'])})"):
+                for i, source in enumerate(msg['sources'], start=1):
+                    st.markdown(f"**[{i}] {source['title']}**")
+                    if source.get('url'):
+                        st.markdown(f"🔗 [{source['url']}]({source['url']})")
+                    if i < len(msg['sources']):
+                        st.markdown("---")
 
 # === Input form ===
 with st.form("chat_form", clear_on_submit=True):
@@ -58,7 +67,7 @@ with st.form("chat_form", clear_on_submit=True):
 # Handle a *new* question only when the button is pressed
 if submitted and user_q.strip():
     st.session_state.messages.append({"role": "user", "content": user_q})
-
+    
     with st.spinner("Thinking..."):
         out = generate_with_rag(
             user_q=user_q,
@@ -67,26 +76,26 @@ if submitted and user_q.strip():
             use_base_prompt=False,
             max_new_tokens=240,
         )
-
+    
     answer_text = out["answer"]
-
-    # Build top-4 sources string
+    
+    # Extract source information
     ev = out.get("evidence", pd.DataFrame())
-    citation = ""
+    sources = []
     if not ev.empty:
-        lines = []
-        for i, (_, row) in enumerate(ev.head(4).iterrows(), start=1):
-            source = row.get("source", "Unknown")
-            url = row.get("url", "")
-            if url:
-                lines.append(f"[{i}] **{source}**: {url}")
-            else:
-                lines.append(f"[{i}] **{source}**")
-        citation = "\n\n**Sources:**  " + "  ".join(lines)
-
-    final_output = answer_text + citation
-    st.session_state.messages.append({"role": "assistant", "content": final_output})
-
+        for _, row in ev.head(4).iterrows():
+            sources.append({
+                'title': row.get("source", "Unknown Source"),
+                'url': row.get("url", ""),
+                'text': row.get("text", "")[:300] + "..." if len(row.get("text", "")) > 300 else row.get("text", "")
+            })
+    
+    # Store message with separate answer and sources
+    st.session_state.messages.append({
+        "role": "assistant",
+        "answer": answer_text,
+        "sources": sources
+    })
+    
     # Force UI to refresh with the new messages
     st.rerun()
-
