@@ -44,7 +44,7 @@ pip install -r requirements.txt
 Step 1: Precompute contexts for the dataset
 
 ```
-python precompute_contexts.py
+python precompute_tokens.py
 ```
 
 Step 2: Fine-tune BioGPT with LoRA on the precomputed contexts
