@@ -68,7 +68,7 @@ python run_evaluation.py
 
 ### 6. Testing the model via chatbot interface (Streamlit)
 
-1. Download [base BioGPT](https://drive.google.com/drive/folders/1ho36q9dWZsLYQ9T9iXbsDO3-soS8Ebgj?usp=drive_link), [fine-tuned BioGPT](https://drive.google.com/drive/folders/1CS1vFI0IoVe4SYivi4LlzkvoRQ3MLUn4?usp=drive_link) and [retrieval artifacts](https://drive.google.com/drive/folders/1tvgXqAdbUKWgi0IWqgZ2BQdhE7sTdW8r?usp=drive_link) from google drive and save them inside this repo folder in your local directory
+1. Download [base BioGPT](https://drive.google.com/drive/folders/1ho36q9dWZsLYQ9T9iXbsDO3-soS8Ebgj?usp=drive_link), [fine-tuned BioGPT](https://drive.google.com/drive/folders/1CS1vFI0IoVe4SYivi4LlzkvoRQ3MLUn4?usp=drive_link) and [retrieval artifacts](https://drive.google.com/drive/folders/1tvgXqAdbUKWgi0IWqgZ2BQdhE7sTdW8r?usp=drive_link) from Google Drive and save them inside this repo folder in your local directory
 
 2. Run the Streamlit chabot:
 
