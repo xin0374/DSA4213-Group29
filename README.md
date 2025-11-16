@@ -18,6 +18,19 @@ git clone git@github.com:xin0374/DSA4213-Group29.git
 cd DSA4213-Group29
 ```
 
+### 1. Create Virtual Environment
+**macOS / Linux**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+**Windows**
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
 ### 2. Install dependencies 
 
 Ensure you have Python 3.9+ installed, then run:
