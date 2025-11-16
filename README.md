@@ -13,9 +13,9 @@ This project focuses on **building a chatbot for medical queries** using **Large
 ### 1. Clone repo
 
 ```bash
-git clone git@github.com:xin0374/DSA4213-Group9.git
+git clone git@github.com:xin0374/DSA4213-Group29.git
 
-cd DSA4213-Group9
+cd DSA4213-Group29
 ```
 
 ### 2. Install dependencies 
