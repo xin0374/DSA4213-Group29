@@ -207,16 +207,66 @@ def rerank_cross_encoder(query: str, df_candidates: pd.DataFrame, top_n: int = 8
 @torch.inference_mode()
 def load_generator(model_dir: str):
     """
-    Loads a generator from a local directory.
+    Loads a generator from a local directory or HuggingFace Hub.
     """
-    tok = AutoTokenizer.from_pretrained(model_dir)
+    # Check if it's a local path
+    is_local = os.path.exists(model_dir)
+    
+    if is_local:
+        print(f"Loading from local path: {model_dir}")
+        tok = AutoTokenizer.from_pretrained(model_dir, local_files_only=True)
+        gen = AutoModelForCausalLM.from_pretrained(model_dir, local_files_only=True)
+    else:
+        print(f"Loading from HuggingFace Hub: {model_dir}")
+        tok = AutoTokenizer.from_pretrained(model_dir)
+        gen = AutoModelForCausalLM.from_pretrained(model_dir)
+    
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
 
-    gen = AutoModelForCausalLM.from_pretrained(model_dir)
     gen.config.pad_token_id = tok.pad_token_id
     gen = gen.to(device).eval()
     return tok, gen
+
+# ====== No RAG (Baseline 1) ======
+@torch.inference_mode()
+def generate_no_rag(user_q: str, tok, gen_model,
+                    max_new_tokens: int = 150,
+                    repetition_penalty: float = 1.1,
+                    no_repeat_ngram_size: int = 3) -> dict:
+    """
+    Baseline 1: Finetuned BioGPT (no retrieval).
+    The model relies only on what it learned during fine-tuning.
+    """
+    system = (
+        "You are a careful medical information assistant for the general public.\n"
+        "- Use short sentences and plain language.\n"
+        "- Avoid diagnosis; give general guidance and next steps.\n"
+        "- If you don't know, say you don't know.\n"
+    )
+    prompt = f"{system}\nQuestion: {user_q.strip()}\nAnswer:"
+
+    # Tokenize safely
+    inputs = tok(prompt, return_tensors="pt",
+                 truncation=True, max_length=512).to(device)
+
+    out_ids = gen_model.generate(
+        **inputs,
+        do_sample=False,  # greedy decoding
+        max_new_tokens=max_new_tokens,
+        repetition_penalty=repetition_penalty,
+        no_repeat_ngram_size=no_repeat_ngram_size,
+        pad_token_id=tok.pad_token_id,
+        eos_token_id=tok.eos_token_id,
+        use_cache=True
+    )
+
+    text = tok.decode(out_ids[0], skip_special_tokens=True)
+    ans = text.split("Answer:", 1)
+    ans = (ans[1] if len(ans) > 1 else text).strip()
+    return {"answer": ans, "evidence": None}
+
+# ====== RAG (Baseline 2 + Full Model) ======
 
 SYSTEM_RAG_FINE = (
     "You are a careful medical information assistant for the general public.\n"
