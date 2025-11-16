@@ -18,7 +18,7 @@ git clone git@github.com:xin0374/DSA4213-Group29.git
 cd DSA4213-Group29
 ```
 
-### 1. Create Virtual Environment
+### 2. Create Virtual Environment
 **macOS / Linux**
 ```bash
 python3 -m venv venv
@@ -31,7 +31,7 @@ python -m venv venv
 venv\Scripts\activate
 ```
 
-### 2. Install dependencies 
+### 3. Install dependencies 
 
 Ensure you have Python 3.9+ installed, then run:
 
@@ -39,7 +39,7 @@ Ensure you have Python 3.9+ installed, then run:
 pip install -r requirements.txt
 ```
 
-### 3. Training pipeline 
+### 4. Training pipeline 
 
 Step 1: Precompute contexts for the dataset
 
@@ -55,7 +55,7 @@ Train the model on precomputed contexts
 python finetune_biogpt.py
 ```
 
-### 4. Evaluating on validation dataset 
+### 5. Evaluating on validation dataset 
 
 Assess models performance using validation split 
 - Baseline 1: Fine-tuned BioGPT
@@ -66,7 +66,7 @@ Assess models performance using validation split
 python run_evaluation.py
 ```
 
-### 5. Testing the model via chatbot interface (Streamlit)
+### 6. Testing the model via chatbot interface (Streamlit)
 
 1. Download [base BioGPT](https://drive.google.com/drive/folders/1ho36q9dWZsLYQ9T9iXbsDO3-soS8Ebgj?usp=drive_link), [fine-tuned BioGPT](https://drive.google.com/drive/folders/1CS1vFI0IoVe4SYivi4LlzkvoRQ3MLUn4?usp=drive_link) and [retrieval artifacts](https://drive.google.com/drive/folders/1tvgXqAdbUKWgi0IWqgZ2BQdhE7sTdW8r?usp=drive_link) from google drive and save them inside this repo folder in your local directory
 
